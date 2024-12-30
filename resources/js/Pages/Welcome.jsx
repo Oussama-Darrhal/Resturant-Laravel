@@ -32,6 +32,7 @@ const getRandomSlideVariant = () => {
 const LandingPage = () => (
     <div className="min-h-screen mx-auto max-w-[150rem] selection:bg-red-700 selection:text-white">
         <Head title="Welcome" />
+
         <NavBar />
 
         <Hero />
@@ -86,7 +87,7 @@ const LandingPage = () => (
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
-            className="bg-[#1d1f53] w-full max-w-[150rem] px-4 sm:px-6 lg:px-6"
+            className="bg-[#474747] w-full max-w-[150rem] px-4 sm:px-6 lg:px-6"
         >
             <Footer />
         </motion.div>

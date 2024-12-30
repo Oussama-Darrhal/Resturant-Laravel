@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from '@inertiajs/react';
+import { motion } from "framer-motion";
 
 const BlogArticles = () => {
     const articles = [
@@ -53,9 +54,17 @@ const BlogArticles = () => {
                 </Link>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4"> {/* Reduced gap from gap-8 to gap-4 */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {/* Featured Article */}
-                <div className="md:col-span-1 flex">
+                <motion.div
+                    variants={{
+                        hidden: { opacity: 0, x: -20 },
+                        visible: { opacity: 1, x: 0, transition: { duration: 0.5 } }
+                    }}
+                    initial="hidden"
+                    whileInView="visible"
+                    className="md:col-span-1 flex"
+                >
                     <Link href={`/articles/${articles[0].slug}`} className="group w-full">
                         <div className="bg-white rounded-lg shadow-md overflow-hidden flex flex-col h-full">
                             <div className="relative h-[400px] md:h-[300px]">
@@ -74,17 +83,22 @@ const BlogArticles = () => {
                             </div>
                         </div>
                     </Link>
-                </div>
+                </motion.div>
 
                 {/* Regular Articles */}
-                <div className="md:col-span-1 grid grid-cols-1 sm:grid-cols-2 gap-4"> {/* Reduced gap from gap-8 to gap-4 */}
-                    {articles.slice(1).map((article) => (
-                        <Link
+                <div className="md:col-span-1 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    {articles.slice(1).map((article, index) => (
+                        <motion.div
                             key={article.id}
-                            href={`/articles/${article.slug}`}
-                            className="group"
+                            variants={{
+                                hidden: { opacity: 0, y: 20 },
+                                visible: { opacity: 1, y: 0, transition: { duration: 0.5, delay: index * 0.1 } }
+                            }}
+                            initial="hidden"
+                            whileInView="visible"
+                            className="bg-white rounded-lg shadow-md overflow-hidden flex flex-col h-full"
                         >
-                            <div className="bg-white rounded-lg shadow-md overflow-hidden flex flex-col h-full">
+                            <Link href={`/articles/${article.slug}`} className="group">
                                 <div className="relative h-48 md:h-40">
                                     <img
                                         src={article.image}
@@ -98,8 +112,8 @@ const BlogArticles = () => {
                                         {article.title}
                                     </h3>
                                 </div>
-                            </div>
-                        </Link>
+                            </Link>
+                        </motion.div>
                     ))}
                 </div>
             </div>

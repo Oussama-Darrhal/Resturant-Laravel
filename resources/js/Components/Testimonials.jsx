@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { motion } from "framer-motion";
 
 const testimonialData = [
     {
@@ -36,13 +37,6 @@ const testimonialData = [
         location: "Los Angeles, CA",
         image: "/images/pfp-5.jpg",
     },
-    {
-        title: "Fantastic Learning Platform",
-        quote: "Instructly provides a fantastic platform for delivering engaging and effective lessons to students.",
-        author: "Sarah Chen",
-        location: "San Francisco, CA",
-        image: "/images/pfp-1.jpg",
-    },
 ];
 
 const Testimonials = () => {
@@ -69,9 +63,15 @@ const Testimonials = () => {
                 <h2 className="text-4xl font-serif mb-12">What Our Customers Say</h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     {currentTestimonials.map((testimonial, index) => (
-                        <div
+                        <motion.div
                             key={index}
-                            className="border border-gray-200 rounded-lg p-8 bg-[#f9f8f6] shadow-lg transition-transform duration-300 transform hover:scale-105"
+                            variants={{
+                                hidden: { opacity: 0, y: 20 },
+                                visible: { opacity: 1, y: 0, transition: { duration: 0.5, delay: index * 0.1 } }
+                            }}
+                            initial="hidden"
+                            whileInView="visible"
+                            className="border border-gray-200 rounded-lg p-8 bg-[#f9f8f6] shadow-lg"
                         >
                             <h3 className="text-2xl font-bold text-red-700 mb-4">"{testimonial.title}"</h3>
                             <p className="text-gray-600 leading-relaxed mb-6 text-lg">
@@ -88,7 +88,7 @@ const Testimonials = () => {
                                     <p className="text-gray-500 text-sm">{testimonial.location}</p>
                                 </div>
                             </div>
-                        </div>
+                        </motion.div>
                     ))}
                 </div>
                 <div className="mt-8 flex justify-center space-x-4">

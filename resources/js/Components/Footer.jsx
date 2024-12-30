@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 
 const Footer = () => {
     return (
-        <footer className="bg-[#1d1f53] text-white">
+        <footer className="bg-[#474747] text-white">
             <div className="container mx-auto px-8 pt-12 pb-6">
                 <div className="flex justify-between">
                     {/* Brand Section */}
@@ -13,7 +13,8 @@ const Footer = () => {
                         transition={{ duration: 1, ease: "easeInOut" }}
                         className="space-y-4"
                     >
-                        <h2 className="text-2xl font-semibold">[Instructly]</h2>
+                        <h2 className="text-2xl font-semibold">[🍜
+                            Bistro Bliss]</h2>
                         <p className="text-sm text-gray-300">
                             Build and realize your dreams with Instructly.
                         </p>
