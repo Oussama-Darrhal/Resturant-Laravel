@@ -1,0 +1,16 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: "Parkinsans", sans-serif !important;
+    overflow-x: hidden;
+}
+
+.focus-only:focus {
+    outline: none !important;
+}
