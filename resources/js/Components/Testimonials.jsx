@@ -1,190 +1,115 @@
-import React, { useState, useRef } from "react";
-import { motion } from "framer-motion";
+import React, { useState } from "react";
 
 const testimonialData = [
     {
+        title: "Highly Detailed Courses",
         quote: "The courses were detailed and easy to follow, helping me understand complex topics step by step.",
         author: "David Wilson",
-        role: "Student",
+        location: "New York, NY",
         image: "/images/pfp-2.jpg",
     },
     {
+        title: "Fantastic Learning Platform",
         quote: "Instructly provides a fantastic platform for delivering engaging and effective lessons to students.",
         author: "Sarah Chen",
-        role: "Instructor",
+        location: "San Francisco, CA",
         image: "/images/pfp-1.jpg",
     },
     {
+        title: "Confidence to Succeed",
         quote: "I gained the confidence to apply for tech roles after completing the beginner-friendly courses.",
         author: "David Kim",
-        role: "Student",
+        location: "Austin, TX",
         image: "/images/pfp-3.jpg",
     },
     {
+        title: "Amazing Teaching Experience",
         quote: "Teaching on Instructly has been an amazing experience, thanks to their supportive team and intuitive tools.",
         author: "Michael Torres",
-        role: "Instructor",
+        location: "Chicago, IL",
         image: "/images/pfp-4.jpg",
     },
     {
+        title: "Enjoyable Learning",
         quote: "The practical exercises and real-world examples made learning enjoyable and effective.",
         author: "Linda Ahmed",
-        role: "Student",
+        location: "Los Angeles, CA",
         image: "/images/pfp-5.jpg",
+    },
+    {
+        title: "Fantastic Learning Platform",
+        quote: "Instructly provides a fantastic platform for delivering engaging and effective lessons to students.",
+        author: "Sarah Chen",
+        location: "San Francisco, CA",
+        image: "/images/pfp-1.jpg",
     },
 ];
 
 const Testimonials = () => {
-    const [activeIndex, setActiveIndex] = useState(0);
-    const [isDragging, setIsDragging] = useState(false);
-    const containerRef = useRef(null);
+    const [currentPage, setCurrentPage] = useState(0);
+    const testimonialsPerPage = 3;
 
-    const handleDotClick = (index) => {
-        setActiveIndex(index);
-    };
+    const startIndex = currentPage * testimonialsPerPage;
+    const endIndex = startIndex + testimonialsPerPage;
+    const currentTestimonials = testimonialData.slice(startIndex, endIndex);
 
-    const testimonialStyle = {
-        cursor: isDragging ? "grabbing" : "grab",
+    const totalPages = Math.ceil(testimonialData.length / testimonialsPerPage);
+
+    const handlePageChange = (direction) => {
+        if (direction === 'next' && currentPage < totalPages - 1) {
+            setCurrentPage((prev) => prev + 1);
+        } else if (direction === 'prev' && currentPage > 0) {
+            setCurrentPage((prev) => prev - 1);
+        }
     };
 
     return (
-        <div className="bg-[#eef5fb] py-16">
-            <div className="container mx-auto px-4">
-                <div className="flex flex-col md:flex-row items-start justify-between gap-12 md:gap-44">
-                    {/* Left Section */}
-                    <div className="md:w-1/3">
-                        <motion.h2
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 1.7, ease: "easeInOut" }}
-                            className="text-4xl font-extrabold mb-4 text-gray-900"
+        <div className="py-16 bg-white">
+            <div className="container mx-auto text-center">
+                <h2 className="text-4xl font-serif mb-12">What Our Customers Say</h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    {currentTestimonials.map((testimonial, index) => (
+                        <div
+                            key={index}
+                            className="border border-gray-200 rounded-lg p-8 bg-[#f9f8f6] shadow-lg transition-transform duration-300 transform hover:scale-105"
                         >
-                            What People Say About Instructly
-                        </motion.h2>
-                        <motion.p
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            transition={{
-                                duration: 1.7,
-                                delay: 0.2,
-                                ease: "easeInOut",
-                            }}
-                            className="text-gray-600"
-                        >
-                            Trusted by a thriving community of students and
-                            educators worldwide.
-                        </motion.p>
-                    </div>
-
-                    {/* Right Section - Testimonials */}
-                    <div ref={containerRef} className="md:w-2/3 select-none">
-                        <motion.div
-                            style={testimonialStyle}
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            transition={{ duration: 0.6, ease: "easeInOut" }}
-                            className="rounded-lg"
-                        >
-                            <motion.p
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 1.7, delay: 0.3 }}
-                                className="text-2xl font-bold mb-8 text-gray-800"
-                            >
-                                "{testimonialData[activeIndex].quote}"
-                            </motion.p>
-
-                            <div className="flex items-center justify-between">
-                                <div className="flex items-center gap-4">
-                                    <img
-                                        src={testimonialData[activeIndex].image}
-                                        alt={`Picture of ${testimonialData[activeIndex].author}`}
-                                        className="w-12 h-12 rounded-full"
-                                        draggable="false"
-                                    />
-                                    <div>
-                                        <motion.h4
-                                            initial={{ opacity: 0, y: 20 }}
-                                            animate={{ opacity: 1, y: 0 }}
-                                            transition={{
-                                                duration: 1.7,
-                                                delay: 0.4,
-                                            }}
-                                            className="font-semibold text-gray-900"
-                                        >
-                                            {
-                                                testimonialData[activeIndex]
-                                                    .author
-                                            }
-                                        </motion.h4>
-                                        <motion.p
-                                            initial={{ opacity: 0, y: 20 }}
-                                            animate={{ opacity: 1, y: 0 }}
-                                            transition={{
-                                                duration: 1.7,
-                                                delay: 0.5,
-                                            }}
-                                            className="text-gray-600"
-                                        >
-                                            {testimonialData[activeIndex].role}
-                                        </motion.p>
-                                    </div>
-                                </div>
-
-                                {/* Navigation Dots */}
-                                <div className="flex gap-2">
-                                    {testimonialData.map((_, index) => (
-                                        <motion.button
-                                            key={index}
-                                            onClick={() =>
-                                                handleDotClick(index)
-                                            }
-                                            className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                                                index === activeIndex
-                                                    ? "bg-blue-600"
-                                                    : "bg-blue-200"
-                                            }`}
-                                            aria-label={`Go to testimonial ${
-                                                index + 1
-                                            }`}
-                                            whileHover={{ scale: 1.2 }}
-                                        />
-                                    ))}
+                            <h3 className="text-2xl font-bold text-red-700 mb-4">"{testimonial.title}"</h3>
+                            <p className="text-gray-600 leading-relaxed mb-6 text-lg">
+                                {testimonial.quote}
+                            </p>
+                            <div className="flex items-center gap-4">
+                                <img
+                                    src={testimonial.image}
+                                    alt={testimonial.author}
+                                    className="w-16 h-16 rounded-full"
+                                />
+                                <div className="text-left">
+                                    <p className="font-medium text-lg">{testimonial.author}</p>
+                                    <p className="text-gray-500 text-sm">{testimonial.location}</p>
                                 </div>
                             </div>
-
-                            {/* Navigation Buttons */}
-                            <div className="flex justify-between mt-8">
-                                <motion.button
-                                    onClick={() =>
-                                        setActiveIndex(
-                                            activeIndex > 0
-                                                ? activeIndex - 1
-                                                : 0
-                                        )
-                                    }
-                                    className="text-2xl text-[#1d1f53] hover:text-black"
-                                    whileHover={{ scale: 1.1 }}
-                                >
-                                    &#8592; Prev
-                                </motion.button>
-                                <motion.button
-                                    onClick={() =>
-                                        setActiveIndex(
-                                            activeIndex <
-                                                testimonialData.length - 1
-                                                ? activeIndex + 1
-                                                : testimonialData.length - 1
-                                        )
-                                    }
-                                    className="text-2xl text-[#1d1f53] hover:text-black"
-                                    whileHover={{ scale: 1.1 }}
-                                >
-                                    Next &#8594;
-                                </motion.button>
-                            </div>
-                        </motion.div>
-                    </div>
+                        </div>
+                    ))}
+                </div>
+                <div className="mt-8 flex justify-center space-x-4">
+                    <button
+                        onClick={() => handlePageChange('prev')}
+                        disabled={currentPage === 0}
+                        className={`px-6 py-2 font-semibold text-white bg-red-600 rounded-lg shadow-md transition duration-300 transform hover:scale-105 ${
+                            currentPage === 0 ? 'opacity-50 cursor-not-allowed' : 'hover:bg-red-700'
+                        }`}
+                    >
+                        Previous
+                    </button>
+                    <button
+                        onClick={() => handlePageChange('next')}
+                        disabled={currentPage >= totalPages - 1}
+                        className={`px-6 py-2 font-semibold text-white bg-red-600 rounded-lg shadow-md transition duration-300 transform hover:scale-105 ${
+                            currentPage >= totalPages - 1 ? 'opacity-50 cursor-not-allowed' : 'hover:bg-red-700'
+                        }`}
+                    >
+                        Next
+                    </button>
                 </div>
             </div>
         </div>

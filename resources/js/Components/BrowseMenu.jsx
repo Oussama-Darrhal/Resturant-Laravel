@@ -4,10 +4,10 @@ import { faCoffee, faUtensils, faGlassMartiniAlt, faIceCream } from '@fortawesom
 
 const BrowseMenu = () => {
     return (
-        <div className="py-16 bg-white">
-            <div className="container mx-auto text-center py-14">
-                <h2 className="text-4xl font-serif mb-12">Browse Our Menu</h2>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="bg-white py-12"> {/* Reduced top and bottom padding */}
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <h2 className="text-4xl font-serif mb-12 text-center">Browse Our Menu</h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4"> {/* Reduced gap for better spacing */}
                     {/* Card 1: Breakfast */}
                     <div className="border border-gray-200 rounded-lg p-6 flex flex-col items-center text-center">
                         <div className="w-16 h-16 flex items-center justify-center rounded-full bg-gray-100 mb-4">

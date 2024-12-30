@@ -2,14 +2,14 @@ import React from 'react';
 
 const HealthyFoodSection = () => {
     return (
-        <section className="py-16 bg-gray-100">
-            <div className="container mx-auto flex flex-col md:flex-row items-center justify-around px-28 py-14">
+        <section className="py-12 bg-[#f9f8f6]">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between py-14">
                 {/* Image Container */}
-                <div className="relative mb-8 md:mb-0">
+                <div className="relative mb-8 md:mb-0 w-full md:w-1/2">
                     <img
-                        src = "/images/nsplsh_35304b666658626a494f67~mv2_d_3910_2772_s_4_2.avif"
+                        src="/images/healthyfood.jpg"
                         alt="Food"
-                        className="rounded-lg w-[600px] h-[400px] object-cover"
+                        className="rounded-lg w-full h-auto object-cover"
                     />
                     <div className="bg-[#333] text-white p-5 rounded-lg absolute bottom-[-20px] right-5 w-72 shadow-lg">
                         <h3 className="mb-2">Come and visit us</h3>
@@ -24,7 +24,7 @@ const HealthyFoodSection = () => {
                 </div>
 
                 {/* Text Container */}
-                <div className="max-w-md">
+                <div className="max-w-md md:w-1/2">
                     <h1 className="text-3xl text-[#1c1f52] mb-4">We provide healthy food for your family.</h1>
                     <p className="text-gray-800 mb-4 leading-relaxed">
                         Our story began with a vision to create a unique dining experience that merges fine dining,
@@ -36,7 +36,7 @@ const HealthyFoodSection = () => {
                     </p>
                     <a
                         href="#"
-                        className="inline-block px-5 py-2 bg-[#fdd981] text-[#1c1f52] rounded-md font-bold hover:underline"
+                        className="inline-block px-6 py-3 border border-gray-300 rounded-full hover:bg-gray-50 transition-colors"
                     >
                         More About Us
                     </a>
