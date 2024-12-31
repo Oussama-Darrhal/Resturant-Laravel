@@ -1,132 +1,86 @@
-import Checkbox from "@/Components/Checkbox";
-import InputError from "@/Components/InputError";
-import InputLabel from "@/Components/InputLabel";
-import PrimaryButton from "@/Components/PrimaryButton";
-import TextInput from "@/Components/TextInput";
-import GuestLayout from "@/Layouts/GuestLayout";
-import { Head, Link, useForm } from "@inertiajs/react";
-import { GoArrowLeft } from "react-icons/go";
+import React, { useState } from 'react';
+import { motion } from 'framer-motion';
+import { Link } from '@inertiajs/react';
+import Navbar from '@/Components/NavBar';
 
-export default function Login({ status, canResetPassword }) {
-    const { data, setData, post, processing, errors, reset } = useForm({
-        email: "",
-        password: "",
-        remember: false,
-    });
+const LoginForm = () => {
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [error, setError] = useState('');
 
-    const submit = (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
 
-        post(route("login"), {
-            onFinish: () => reset("password"),
-        });
+        // Example validation (you can replace this with your actual logic)
+        if (!email || !password) {
+            setError('Please fill in all fields.');
+            return;
+        }
+
+        // Reset error (if any) and proceed with login logic
+        setError('');
+        // Add your login logic here (e.g., calling an API)
     };
 
     return (
         <>
-            <Head title="Login" />
-
-            <div className="min-h-screen flex flex-col p-4 selection:bg-[#fdd981] selection:text-black">
-                <Link
-                    href="/"
-                    className="flex items-center gap-2 text-xl font-bold w-fit"
+            <Navbar />
+            <div className="flex items-center justify-center min-h-[85vh] bg-[#f9f8f6] py-12">
+                <motion.div
+                    className="bg-white rounded-lg shadow-lg p-8 max-w-md w-full"
+                    initial={{ opacity: 0, y: -20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5 }}
                 >
-                    <GoArrowLeft className="text-2xl" />
-                    <span className="text-gray-600">HomePage</span>
-                </Link>
-
-                <div className="flex flex-col md:flex-row flex-1 mt-4 bg-gray-200">
-                    {/* Left Half - Image Section */}
-                    <div className="relative w-full md:w-1/2 min-h-[300px] md:h-auto">
-                        <div className="absolute inset-0 bg-[url('/images/lukas-blazek-GnvurwJsKaY-unsplash.jpg')] bg-cover bg-center" />
-                        <div className="absolute inset-0 bg-red-700 bg-opacity-40" />
-                        <div className="relative z-10 p-8 md:p-12 h-full flex flex-col justify-center">
-                            <h3 className="text-3xl md:text-5xl font-bold mb-6 text-white leading-tight">
-                                Welcome Back to Learning!
-                            </h3>
-                            <p className="text-sm md:text-base text-gray-200 leading-relaxed max-w-lg">
-                                Log in to access your courses, track your
-                                progress, and continue your learning journey
-                                with us.
-                            </p>
+                    <h2 className="text-3xl font-semibold text-center text-[#1c1f52] mb-6">Login</h2>
+                    {error && <p className="text-red-500 mb-4">{error}</p>}
+                    <form onSubmit={handleSubmit}>
+                        <div className="mb-4">
+                            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">
+                                Email
+                            </label>
+                            <input
+                                type="email"
+                                id="email"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                placeholder="Enter your email"
+                            />
                         </div>
-                    </div>
-
-                    {/* Right Half - Form Section */}
-                    <div className="w-full md:w-1/2 bg-red-700 p-6 md:p-12 flex flex-col justify-center">
-                        <div className="max-w-md w-full mx-auto">
-                            <h1 className="text-2xl md:text-3xl font-bold text-white mb-2">
-                                Login
-                            </h1>
-                            <p className="text-sm md:text-base text-gray-300 mb-8">
-                                Access your account to continue learning.
-                            </p>
-                            <form onSubmit={submit} className="space-y-4">
-                                <input
-                                    type="email"
-                                    placeholder="Email"
-                                    className="w-full border border-gray-600 rounded-lg p-3 md:p-4 text-white placeholder-gray-400 focus:ring-gray-900 focus:border-gray-900 bg-gray-900 hover:bg-gray-900/90"
-                                    onChange={(e) =>
-                                        setData("email", e.target.value)
-                                    }
-                                />
-                                <InputError message={errors.email} />
-                                <input
-                                    type="password"
-                                    placeholder="Password"
-                                    className="w-full border border-gray-600 rounded-lg p-3 md:p-4 text-white placeholder-gray-400 focus:ring-gray-900 focus:border-gray-900 bg-gray-900 hover:bg-gray-900/90 "
-                                    onChange={(e) =>
-                                        setData("password", e.target.value)
-                                    }
-                                />
-                                <InputError
-                                    message={errors.password}
-                                    className="mt-2"
-                                />
-                                <div className="flex items-center justify-between">
-                                    <label className="flex items-center text-sm text-gray-300">
-                                        <Checkbox
-                                            checked={data.remember}
-                                            onChange={(e) =>
-                                                setData(
-                                                    "remember",
-                                                    e.target.checked
-                                                )
-                                            }
-                                        />
-                                        <span className="ml-2">
-                                            Remember Me
-                                        </span>
-                                    </label>
-                                    {canResetPassword && (
-                                        <Link
-                                            href={route("password.request")}
-                                            className="text-sm focus:ring-gray-900 focus:border-gray-900 underline"
-                                        >
-                                            Forgot Password?
-                                        </Link>
-                                    )}
-                                </div>
-                                <button
-                                    type="submit"
-                                    className="w-full bg-gray-900 text-white font-bold p-3 md:p-4 rounded-lg hover:bg-gray-900/90 transition-colors mt-6"
-                                >
-                                    Log In
-                                </button>
-                                <p className="text-center text-white text-sm md:text-base mt-4">
-                                    Don't Have An Account?{" "}
-                                    <Link
-                                        href="/register"
-                                        className="text-[#fcd881] underline text-gray-900 focus:ring-gray-900 focus:border-gray-900 "
-                                    >
-                                        Register Here!
-                                    </Link>
-                                </p>
-                            </form>
+                        <div className="mb-4">
+                            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="password">
+                                Password
+                            </label>
+                            <input
+                                type="password"
+                                id="password"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                placeholder="Enter your password"
+                            />
                         </div>
+                        <div className="flex items-center justify-between mb-4">
+                            <Link href="/forgot-password" className="text-sm text-blue-500 hover:text-blue-700">Forgot Password?</Link>
+                        </div>
+                        <motion.button
+                            type="submit"
+                            className="w-full bg-red-700 text-white font-bold py-2 px-4 rounded-full hover:bg-red-800 transition-colors"
+                            initial={{ opacity: 0, scale: 0.8 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            transition={{ duration: 0.5, delay: 0.2 }}
+                        >
+                            Login
+                        </motion.button>
+                    </form>
+                    <div className="mt-4 text-center">
+                        <p className="text-gray-600">Don't have an account? <Link href="/register" className="text-red-700 hover:underline">Sign Up</Link></p>
                     </div>
-                </div>
+                </motion.div>
             </div>
         </>
     );
-}
+};
+
+export default LoginForm;

@@ -37,6 +37,13 @@ const testimonialData = [
         location: "Los Angeles, CA",
         image: "/images/pfp-5.jpg",
     },
+    {
+        title: "Fantastic Learning Platform",
+        quote: "Instructly provides a fantastic platform for delivering engaging and effective lessons to students.",
+        author: "Sarah Chen",
+        location: "San Francisco, CA",
+        image: "/images/pfp-1.jpg",
+    },
 ];
 
 const Testimonials = () => {
