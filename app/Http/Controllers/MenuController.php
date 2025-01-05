@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Models\Menu;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\Auth;
 
 class MenuController extends Controller
 {
@@ -30,8 +31,10 @@ class MenuController extends Controller
         // Execute the query to get the filtered menu items
         $menu = $query->get();
 
-        // Return the view with the menu data
-        return Inertia::render('Menu/Index', ['menu' => $menu]);
+        // Return the view with the menu data and authentication status
+        return Inertia::render('Menu/Index', [
+            'menu' => $menu,
+            'isAuthenticated' => Auth::check(),
+        ]);
     }
-
 }

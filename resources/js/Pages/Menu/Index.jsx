@@ -33,11 +33,11 @@ const getRandomSlideVariant = () => {
     return Math.random() > 0.5 ? slideFromLeftVariants : slideFromRightVariants;
 };
 
-const MenuIndex = ( { menu } ) => (
+const MenuIndex = ( { menu, isAuthenticated } ) => (
     <div className="min-h-screen mx-auto max-w-[150rem] selection:bg-red-700 selection:text-white">
         <Head title="Menu" />
 
-        <Navbar />
+        <Navbar isAuthenticated={isAuthenticated} />
 
         <Menu items={menu} />
 

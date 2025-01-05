@@ -17,22 +17,6 @@ Route::get('/', function () {
     ]);
 });
 
-Route::middleware(['guest'])->group(function () {
-    // Menu
-    Route::get('/menu', [MenuController::class, 'index'])->name('menu.index'); // Show all courses
-    });
-
-// // Routes for Testimonails
-// Route::post('/testimonials', [TestimonialController::class, 'store'])->name('testimonials.store');
-
-// Route::get('/dashboard', function () {
-//     return Inertia::render('Dashboard');
-// })->middleware(['auth', 'verified'])->name('dashboard');
-
-// Route::middleware('auth')->group(function () {
-//     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-//     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-//     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-// });
+Route::get('/menu', [MenuController::class, 'index'])->name('menu.index'); // Show Menu Items
 
 require __DIR__ . '/auth.php';

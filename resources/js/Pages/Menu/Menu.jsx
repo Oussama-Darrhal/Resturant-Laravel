@@ -34,13 +34,11 @@ const Menu = ({ items }) => {
                 >
                     Explore our diverse menu designed to satisfy every palate!
                 </motion.p>
-                <div className="flex justify-center mb-8">
+                <div className="flex flex-wrap justify-center mb-8">
                     {['all', 'breakfast', 'main', 'drinks', 'desserts'].map((filter) => (
                         <motion.button
                             key={filter}
-                            className={`px-4 py-2 ${
-                                currentFilter === filter ? 'bg-red-700' : 'bg-gray-200'
-                            } text-white rounded-full mx-2 hover:bg-red-800 transition-colors`}
+                            className={`px-6 py-3 ${currentFilter === filter ? 'bg-red-700 text-white' : 'bg-gray-200 text-gray-700 hover:text-white'} rounded-full mx-2 mb-2 hover:bg-red-800 transition-colors`}
                             onClick={() => handleFilterClick(filter)}
                             initial={{ opacity: 0, scale: 0.8 }}
                             animate={{ opacity: 1, scale: 1 }}
